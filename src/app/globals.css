@@ -124,3 +124,6 @@
   
 }
 
+.myFont {
+  font-family: var(--font-poppins);
+}
