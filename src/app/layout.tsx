@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import {Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import HeaderAndSidebar from "./components/HeaderAndSidebar";
 
@@ -20,13 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-   
+
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} antialiased`}
+        className={`${poppins.variable} antialiased bg-[#f4f5fc]`}
       >
-        <HeaderAndSidebar/>
+        <HeaderAndSidebar />
         {children}
       </body>
     </html>
