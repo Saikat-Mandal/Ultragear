@@ -1,14 +1,25 @@
 'use client'
 
 import { Menu, ShoppingCart, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "../store/cartStore";
 
 const HeaderAndSidebar = () => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
+    
+ 
+  const [noOfItems, setNoOfItems] = useState(0);
+  const cart = useCartStore(state => state.cart);
+
+  useEffect(() => {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    setNoOfItems(totalItems);
+  }, [cart]);
+
 
   return (
     <div className="myFont">
@@ -20,12 +31,20 @@ const HeaderAndSidebar = () => {
           >
         <Menu />
       </Button>
-              <h1 className="text-3xl font-semibold">Ultragear</h1>
+      <h1 className="text-3xl font-semibold">Ultragear</h1>
+     <div className="relative">
       <Button
-      onClick={() => router.push('/cart')}
-       className="bg-[#ffffff] text-black hover:bg-[#f18a10] rounded-xl">
-          <ShoppingCart />
+        onClick={() => router.push('/cart')}
+        className="bg-[#ffffff] text-black hover:bg-[#f18a10] rounded-xl relative"
+      >
+        <ShoppingCart />
+        {noOfItems > 0 && (
+          <div className="absolute -top-2 -right-2 bg-[#f18a10] text-white text-xs font-bold rounded-full px-2 py-0.5">
+            {noOfItems}
+          </div>
+        )}
       </Button>
+    </div>
       </header>
      {/* SIDEBAR + BACKDROP */}
       <div

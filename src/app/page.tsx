@@ -4,16 +4,26 @@ import { Card } from "@/components/ui/card";
 import { Funnel, Heart,Plus} from "lucide-react";
 import Image from "next/image";
 import mainImage from "@/app/assets/gta.jpeg";
+import { useCartStore } from "./store/cartStore";
 
 export default function Home() {
 
+  
+const cart = useCartStore(state => state.cart);
+const addToCart = useCartStore(state => state.addToCart);
+const product =    {
+        name : "GTA V",
+        dayPrice : 199,
+        weeklyPrice : 399, 
+        monthlyPrice : 899, 
+    }
 
 
  return (
-    <div className="p-4 bg-[#f4f5fc] relative min-h-screen overflow-hidden myFont">
+    <div className="p-4 bg-[#f4f5fc]  relative min-h-screen overflow-hidden myFont">
      
      {/* MAIN CONTENT */}
-<h1 className="text-2xl mt-4 font-semibold">Catalogue</h1>
+  <h1 className="text-2xl mt-4 font-semibold">Catalogue</h1>
      {/* FILTER BUTTONS */}
       <div className="flex flex-wrap items-center gap-2 md:flex-row mt-6">
             <Button className="bg-[#ffffff] text-black hover:bg-[#f18a10] rounded-xl">
@@ -44,7 +54,7 @@ export default function Home() {
       <Card className="w-46 md:w-auto border-2 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out p-4 bg-[#ffffff]">
       <div className="flex justify-between mb-2">
           <Heart className="text-gray-600 hover:text-red-500 transition-colors" />
-          <Plus className="text-amber-500" />
+          <span onClick={() => addToCart(product, 'day')}><Plus className="text-amber-500" /></span>
       </div>
     <div className="relative w-full md:aspect-[4/5] overflow-hidden rounded-lg">
             <Image
