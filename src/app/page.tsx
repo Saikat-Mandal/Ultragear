@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchProducts } from "./utils/products";
 import { Product } from "./types/types";
+import Loader from "./components/Loader";
 
 
 export default function Home() {
@@ -48,7 +49,9 @@ export default function Home() {
       {/* GAME CARDS */}
       <div className="mt-6 min-h-screen overflow-x-auto cursor-pointer p-6">
         {loading ? (
-          <div className="text-center text-gray-600 mt-10">Loading...</div>
+          <div className="text-center text-gray-600 mt-10 w-full flex justify-center">
+            <Loader />
+          </div>
         ) : (
           <div
             className="

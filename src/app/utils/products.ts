@@ -14,3 +14,12 @@ export const fetchProducts = (): Promise<Product[]> => {
     setTimeout(() => resolve(mockProducts), 1000); // 1 second delay
   });
 };
+
+export const fetchProductById = (id: string): Promise<Product | undefined> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const product = mockProducts.find((p) => p.id === Number(id));
+      resolve(product);
+    }, 1000); // 1 second delay
+  });
+};
