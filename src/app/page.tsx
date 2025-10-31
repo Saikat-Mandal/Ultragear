@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Funnel, Heart, Plus } from "lucide-react";
 import Image from "next/image";
-import mainImage from "@/app/assets/gta.jpeg";
+import mainImage from "@/app/assets/images/gta.jpeg";
 import { useCartStore } from "./store/cartStore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -82,7 +82,7 @@ export default function Home() {
                 <Link href={`/games/${product.id}`}>
                   <div className="relative w-full overflow-hidden rounded-lg">
                     <Image
-                      src={mainImage}
+                      src={product.imageUrl || mainImage}
                       alt={`${product.name} Cover`}
                       width={800}
                       height={600}

@@ -1,12 +1,69 @@
 import { Product } from "../types/types";
 
 export const mockProducts: Product[] = [
-  { id: 1, name: "GTA V", dayPrice: 199, weeklyPrice: 399, monthlyPrice: 899 },
-  { id: 2, name: "Spider-Man 2", dayPrice: 249, weeklyPrice: 499, monthlyPrice: 999 },
-  { id: 3, name: "God of War Ragnarok", dayPrice: 299, weeklyPrice: 599, monthlyPrice: 1199 },
-  { id: 4, name: "Horizon Forbidden West", dayPrice: 199, weeklyPrice: 449, monthlyPrice: 899 },
-  { id: 5, name: "Elden Ring", dayPrice: 249, weeklyPrice: 499, monthlyPrice: 999 },
-  { id: 6, name: "The Last of Us Part I", dayPrice: 299, weeklyPrice: 599, monthlyPrice: 1099 },
+  {
+    id: 1,
+    name: "GTA V",
+    publisher: "Rockstar Games",
+    dayPrice: 199,
+    weeklyPrice: 399,
+    monthlyPrice: 899,
+    imageUrl: "/assets/images/gta.jpeg"
+  },
+  {
+    id: 2,
+    name: "Spider-Man 2",
+    publisher: "Insomniac Games",
+    dayPrice: 249,
+    weeklyPrice: 499,
+    monthlyPrice: 999,
+    imageUrl: "/assets/images/gta.jpeg"
+  },
+  {
+    id: 3,
+    name: "God of War Ragnarok",
+    publisher: "Santa Monica Studio",
+    dayPrice: 299,
+    weeklyPrice: 599,
+    monthlyPrice: 1199,
+    imageUrl: "/assets/images/gta.jpeg"
+  },
+  {
+    id: 4,
+    name: "Horizon Forbidden West",
+    publisher: "Guerrilla Games",
+    dayPrice: 199,
+    weeklyPrice: 449,
+    monthlyPrice: 899,
+    imageUrl: "/assets/images/gta.jpeg"
+  },
+  {
+    id: 5,
+    name: "Elden Ring",
+    publisher: "FromSoftware",
+    dayPrice: 249,
+    weeklyPrice: 499,
+    monthlyPrice: 999,
+    imageUrl: "/assets/images/gta.jpeg"
+  },
+  {
+    id: 6,
+    name: "The Last of Us Part I",
+    publisher: "Naughty Dog",
+    dayPrice: 299,
+    weeklyPrice: 599,
+    monthlyPrice: 1099,
+    imageUrl: "/assets/images/gta.jpeg"
+  },
+  {
+    id: 7,
+    name: "COD modern warfare II",
+    publisher: "Activision",
+    dayPrice: 299,
+    weeklyPrice: 599,
+    monthlyPrice: 1099,
+    imageUrl: "/assets/images/modernWarfare.jpg"
+  }
 ];
 
 export const fetchProducts = (): Promise<Product[]> => {
@@ -23,3 +80,7 @@ export const fetchProductById = (id: string): Promise<Product | undefined> => {
     }, 1000); // 1 second delay
   });
 };
+
+export const optionsForRental = [
+  'day' , 'weekly' , 'monthly'
+]

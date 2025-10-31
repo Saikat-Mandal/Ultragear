@@ -3,9 +3,11 @@ export type RentalType = 'day' | 'weekly' | 'monthly';
 export interface Product {
   id: number;
   name: string;
+  publisher:string;
   dayPrice: number;
   weeklyPrice: number;
   monthlyPrice: number;
+  imageUrl : string;
 }
 
 export interface CartItem {

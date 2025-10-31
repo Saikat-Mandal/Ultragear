@@ -2,18 +2,26 @@
 
 import { Menu, ShoppingCart, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "../store/cartStore";
+import Link from "next/link";
 
 const HeaderAndSidebar = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathname = usePathname();
   const router = useRouter();
 
 
   const [noOfItems, setNoOfItems] = useState(0);
   const cart = useCartStore(state => state.cart);
+
+  
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
+
 
   useEffect(() => {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -77,21 +85,18 @@ const HeaderAndSidebar = () => {
             </Button>
           </div>
           <nav className="flex flex-col items-center p-4 gap-4 text-lg">
-            <button className="text-left hover:text-[#f18a10] transition-colors duration-200">
+            <Link href="/" className="text-left hover:text-[#f18a10] transition-colors duration-200">
               Home
-            </button>
-            <button className="text-left hover:text-[#f18a10] transition-colors duration-200">
-              Catalogue
-            </button>
-            <button className="text-left hover:text-[#f18a10] transition-colors duration-200">
+            </Link>
+            <Link href="/orders" className="text-left hover:text-[#f18a10] transition-colors duration-200">
               Orders
-            </button>
-            <button className="text-left hover:text-[#f18a10] transition-colors duration-200">
+            </Link>
+            <Link href="/wishlist" className="text-left hover:text-[#f18a10] transition-colors duration-200">
               Wishlist
-            </button>
-            <button className="text-left hover:text-[#f18a10] transition-colors duration-200">
-              Settings
-            </button>
+            </Link>
+            <Link href="/account" className="text-left hover:text-[#f18a10] transition-colors duration-200">
+              Account
+            </Link>
           </nav>
         </div>
       </div>

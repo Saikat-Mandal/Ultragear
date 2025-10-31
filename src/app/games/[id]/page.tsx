@@ -1,19 +1,26 @@
 'use client'
 
-import { fetchProductById } from "@/app/utils/products";
+import { fetchProductById, optionsForRental } from "@/app/utils/products";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Product } from "../../types/types";
+import { Product, RentalType } from "../../types/types";
 import Loader from "@/app/components/Loader";
 import Image from "next/image";
-import demo from "../../assets/modernWarfare.jpg";
+import demo from "../../assets/images/modernWarfare.jpg";
 import RadioSelector from "@/app/components/RadioSelector";
+import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/app/store/cartStore";
+import { ShoppingCart } from "lucide-react";
 
 const Page = () => {
   const params = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [rentalType , setRentalType] = useState<string | null>(null)
   const id = params.id;
+  console.log(rentalType);
+  
+  const addToCart = useCartStore((state) => state.addToCart);
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -44,7 +51,7 @@ const Page = () => {
       {/* Center Section - Image */}
       <div className="order-1 md:order-2 flex-1 flex items-center justify-center p-4 rounded bg-white shadow-[0_8px_30px_rgb(0,0,0,0.10)] rounded-xl">
         <Image
-          src={demo}
+          src={ product.imageUrl || demo}
           alt={`${product.name} Cover`}
           width={500}
           height={500}
@@ -54,13 +61,20 @@ const Page = () => {
 
       {/* Right Section - Product Info */}
       <div className="order-2 md:order-3 flex-1 bg-gray-100 p-4 rounded bg-white shadow-[0_8px_30px_rgb(0,0,0,0.10)] rounded-xl">
-        <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-        <RadioSelector
+        <h1 className="text-5xl text-center font-bold mb-4 mt-2">{product?.name}</h1>
+        <h1 className="text-2xl text-center font-bold my-4">{product?.publisher}</h1>
+        <div className="my-4 flex justify-center">
+          <RadioSelector
           options={[`Daily price ${product?.dayPrice}/-`, `Weekly price ${product?.weeklyPrice}/-`, `Monthly Price ${product?.monthlyPrice}/-`]}
-        //   buttonWidth={400} // Each button will be 150px wide
-          onChange={(index) => console.log('Selected:', index)}
+          onChange={(index) => setRentalType(optionsForRental[index])}
           />
-
+        </div>
+         <Button
+            onClick={() => addToCart(product, rentalType as RentalType)}
+            className="cursor-pointer"
+          >
+            <ShoppingCart/> Add to cart
+          </Button>
       </div>
 
       {/* Left Section - Game Info */}
