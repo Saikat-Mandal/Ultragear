@@ -17,7 +17,7 @@ const HeaderAndSidebar = () => {
   const [noOfItems, setNoOfItems] = useState(0);
   const cart = useCartStore(state => state.cart);
 
-  
+
   useEffect(() => {
     setSidebarOpen(false);
   }, [pathname]);
@@ -32,7 +32,7 @@ const HeaderAndSidebar = () => {
   return (
     <div className="myFont">
       {/* HEADER */}
-      <header className="p-4 flex justify-between items-center bg-[#ffffff]">
+      <header className="p-4 flex justify-between items-center">
         <Button
           onClick={() => setSidebarOpen(true)}
           className="bg-[#ffffff] text-black hover:bg-[#f18a10] rounded-xl"

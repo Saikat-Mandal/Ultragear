@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Funnel, Heart, Plus } from "lucide-react";
 import Image from "next/image";
-import mainImage from "@/app/assets/images/gta.jpeg";
 import { useCartStore } from "./store/cartStore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -21,7 +20,7 @@ export default function Home() {
   useEffect(() => {
     const loadProducts = async () => {
       setLoading(true);
-      const data = await fetchProducts(); // ✅ mock API call
+      const data = await fetchProducts();
       setProducts(data);
       setLoading(false);
     };
@@ -67,22 +66,20 @@ export default function Home() {
                 key={product.id}
                 className="
                 shadow-[0_8px_30px_rgb(0,0,0,0.10)]
+                border-0
                 w-46 md:w-56 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out p-4 bg-[#ffffff]"
               >
                 <div className="flex justify-between mb-2">
                   <Heart className="text-gray-600 hover:text-red-500 transition-colors" />
-                  <span
-                    onClick={() => addToCart(product, "day")}
-                    className="cursor-pointer"
-                  >
-                    <Plus className="text-amber-500" />
-                  </span>
+                  {
+                    product.stockQuantity > 0 ? <p className="text-green-500">In stock</p> : <p className="text-red-500">Out of stock</p>
+                  }
                 </div>
 
                 <Link href={`/games/${product.id}`}>
                   <div className="relative w-full overflow-hidden rounded-lg">
                     <Image
-                      src={product.imageUrl || mainImage}
+                      src={product.imageUrl}
                       alt={`${product.name} Cover`}
                       width={800}
                       height={600}

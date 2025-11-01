@@ -1,13 +1,22 @@
-export type RentalType = 'day' | 'weekly' | 'monthly';
+import { StaticImageData } from "next/image";
+
+export type RentalType = "day" | "weekly" | "monthly";
 
 export interface Product {
   id: number;
   name: string;
-  publisher:string;
+  publisher: string;
   dayPrice: number;
   weeklyPrice: number;
   monthlyPrice: number;
-  imageUrl : string;
+  imageUrl: string | StaticImageData;
+  description: string;
+  genre: string;
+  platform: string;
+  countryOfOrigin: string;
+  pegiRating: string;
+  internetRequired: boolean;
+  stockQuantity: number
 }
 
 export interface CartItem {
