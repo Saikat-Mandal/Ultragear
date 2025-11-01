@@ -21,7 +21,7 @@ const Page = () => {
     const params = useParams();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [rentalType, setRentalType] = useState<string | null>(null)
+    const [rentalType, setRentalType] = useState<RentalType>("day");
     const id = params.id;
 
     const addToCart = useCartStore((state) => state.addToCart);
@@ -50,6 +50,7 @@ const Page = () => {
         return <div className="p-6 text-red-500">Product not found.</div>;
     }
 
+
     return (
         <div className="flex flex-col md:flex-row h-auto md:h-[90vh] gap-6 p-6 myFont">
             {/* Center Section - Image */}
@@ -66,7 +67,7 @@ const Page = () => {
             {/* Right Section - Product Info */}
             <div className="order-2 md:order-3 flex-1 p-4  rounded-xl">
                 <h1 className="text-5xl text-center font-bold mb-4 mt-2">{product?.name}</h1>
-                <h1 className="text-2xl text-center font-bold my-4">{product?.publisher}</h1>
+                <h1 className="text-2xl text-center font-semibold my-4 text-gray-400">{product?.publisher}</h1>
                 <div className="bg-white p-4 rounded-xl ">
                     <div className="my-4">
                         <RadioSelector
@@ -75,9 +76,16 @@ const Page = () => {
                         />
                     </div>
                     <Button
-                        onClick={() => addToCart(product, rentalType as RentalType)}
+                        onClick={() => {
+                            if (!rentalType) {
+                                alert("Please select a rental type before adding to cart");
+                                return;
+                            }
+                            addToCart(product, rentalType as RentalType);
+                        }}
                         variant="outline"
                         className="cursor-pointer rounded-full border-2 border-black hover:bg-[#F18A10] hover:text-white"
+                        disabled={product.stockQuantity == 0}
                     >
                         Add to cart
                         <MoveRight />
@@ -99,6 +107,14 @@ const Page = () => {
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
                         <AccordionTrigger className="text-lg">Additional information</AccordionTrigger>
+                        <div className="flex gap-x-2">
+                            <AccordionContent className="font-bold">
+                                Publisher :
+                            </AccordionContent>
+                            <AccordionContent>
+                                {product.publisher}
+                            </AccordionContent>
+                        </div>
                         <div className="flex gap-x-2">
                             <AccordionContent className="font-bold">
                                 Genre :
